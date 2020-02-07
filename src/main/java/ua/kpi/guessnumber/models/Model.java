@@ -49,9 +49,9 @@ public class Model {
 
     private void updateLimits(int answer) {
         if (answer > correctAnswer) {
-            setTopLimit(answer);
+            setTopLimit(answer - 1);
         } else {
-            setBottomLimit(answer);
+            setBottomLimit(answer + 1);
         }
     }
 

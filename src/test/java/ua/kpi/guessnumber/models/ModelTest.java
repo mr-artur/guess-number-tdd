@@ -10,11 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ModelTest {
 
-    private Model model = new Model(50, 0, 100);
+    public static final int CORRECT_ANSWER = 50;
+    public static final int BOTTOM_LIMIT = 0;
+    public static final int TOP_LIMIT = 100;
+
+    private final Model model = new Model(CORRECT_ANSWER, BOTTOM_LIMIT, TOP_LIMIT);
 
     @Test
     void tryToGuess_shouldChangeStateOfNumberToGuessed_whenAnswerIsCorrect() {
-        model.tryToGuess(50);
+        model.tryToGuess(CORRECT_ANSWER);
 
         assertTrue(model.isNumberGuessed());
     }
@@ -28,16 +32,18 @@ class ModelTest {
 
     @Test
     void tryToGuess_shouldUpdateTopLimit_whenAnswerIsGreaterThanCorrectAnswer() {
-        model.tryToGuess(55);
+        int answer = 55;
+        model.tryToGuess(answer);
 
-        assertEquals(55, model.getTopLimit());
+        assertEquals(answer - 1, model.getTopLimit());
     }
 
     @Test
     void tryToGuess_shouldUpdateBottomLimit_whenAnswerIsSmallerThanCorrectAnswer() {
-        model.tryToGuess(45);
+        int answer = 45;
+        model.tryToGuess(answer);
 
-        assertEquals(45, model.getBottomLimit());
+        assertEquals(answer + 1, model.getBottomLimit());
     }
 
     @Test
