@@ -2,18 +2,27 @@ package ua.kpi.guessnumber.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Model {
 
-    private final int correctAnswer;
+    private int correctAnswer;
     private final List<Integer> answers = new ArrayList<>();
     private int bottomLimit;
     private int topLimit;
 
-    public Model(int correctAnswer, int bottomLimit, int topLimit) {
+    public void setUp(int bottomLimit, int topLimit) {
+        setBottomLimit(bottomLimit);
+        setTopLimit(topLimit);
+        generateCorrectAnswer();
+    }
+
+    public void generateCorrectAnswer() {
+        correctAnswer = new Random().nextInt(topLimit - 1) + bottomLimit + 1;
+    }
+
+    void setCorrectAnswer(int correctAnswer) {
         this.correctAnswer = correctAnswer;
-        this.bottomLimit = bottomLimit;
-        this.topLimit = topLimit;
     }
 
     public void setTopLimit(int limit) {
@@ -49,9 +58,9 @@ public class Model {
 
     private void updateLimits(int answer) {
         if (answer > correctAnswer) {
-            setTopLimit(answer - 1);
+            setTopLimit(answer);
         } else {
-            setBottomLimit(answer + 1);
+            setBottomLimit(answer);
         }
     }
 

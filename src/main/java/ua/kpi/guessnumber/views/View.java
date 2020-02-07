@@ -15,7 +15,7 @@ public class View {
     }
 
     public void printLimits(int bottom, int top) {
-        printMessage(String.format("Current limits: [%d...%d]", bottom, top));
+        printMessage(String.format("Current limits: ]%d...%d[", bottom, top));
     }
 
     public void printGuessedNumber(int number) {

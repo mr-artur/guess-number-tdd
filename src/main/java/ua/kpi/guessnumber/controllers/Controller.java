@@ -1,5 +1,6 @@
 package ua.kpi.guessnumber.controllers;
 
+import ua.kpi.guessnumber.models.Limits;
 import ua.kpi.guessnumber.models.Model;
 import ua.kpi.guessnumber.views.View;
 
@@ -17,6 +18,7 @@ public class Controller {
 
     public void startGame() {
         view.printMessage(View.WELCOME_MESSAGE);
+        model.setUp(Limits.BOTTOM_LIMIT, Limits.TOP_LIMIT);
         int guessedNumber = guessNumber();
         view.printGuessedNumber(guessedNumber);
         view.printAllAnswers(model.getAnswers());
@@ -43,7 +45,7 @@ public class Controller {
         return scanner.nextInt();
     }
 
-    void tryToGuess(int answer) {
+    private void tryToGuess(int answer) {
         if (isOutOfLimits(answer)) {
             view.printMessage(View.OUT_OF_LIMITS_MESSAGE);
         } else {
@@ -52,6 +54,6 @@ public class Controller {
     }
 
     private boolean isOutOfLimits(int answer) {
-        return answer > model.getTopLimit() || answer < model.getBottomLimit();
+        return answer >= model.getTopLimit() || answer <= model.getBottomLimit();
     }
 }
